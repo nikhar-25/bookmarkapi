@@ -14,14 +14,12 @@ def create_app(test_config=None):
 
     app = Flask(__name__, instance_relative_config=True)
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bookmarks.db'
-
+    app.config["JWT_SECRET_KEY"] = "super-secret"
+    app.config["JWT_ALGORITHM"] = "HS256"
     if test_config is None:
         app.config.from_mapping(
             SECRET_KEY=os.environ.get("SECRET_KEY"),
             SQLALCHEMY_TRACK_MODIFICATIONS=False,
-            JWT_SECRET_KEY=os.environ.get('JWT_SECRET_KEY'),
-
-
             SWAGGER={
                 'title': "Bookmarks API",
                 'uiversion': 3
